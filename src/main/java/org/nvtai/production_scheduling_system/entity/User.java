@@ -12,21 +12,21 @@ import lombok.experimental.FieldDefaults;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID")
-    Long userId;
+    @Column(name = "uid")
+    Long uid;
 
-    @Column(name = "EmployeeID")
-    Long employeeId;
+    @Column(name = "eid")
+    Long eid;
 
-    @Column(name = "Username")
+    @Column(name = "username")
     String username;
 
-    @Column(name = "Password")
+    @Column(name = "password")
     String password;
 
-    @Column(name = "Active")
+    @Column(name = "active")
     boolean active;
 
-    @Column(name = "Email")
+    @Column(name = "email")
     String email;
 }
