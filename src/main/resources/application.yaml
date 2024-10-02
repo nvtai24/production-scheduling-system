@@ -18,8 +18,7 @@ spring:
     servlet:
       session:
         timeout: 30m
-
   security:
     user:
       name: admin
-      password: 123
+      password: admin

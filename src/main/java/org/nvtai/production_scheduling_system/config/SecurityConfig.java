@@ -1,12 +1,14 @@
 package org.nvtai.production_scheduling_system.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -15,18 +17,18 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/mylogin", "/css/**", "/js/**", "/images/**").permitAll()  // Cho phép truy cập vào trang đăng nhập và tài nguyên tĩnh
-//                                .anyRequest().authenticated()  // Yêu cầu xác thực cho tất cả các yêu cầu còn lại
+                                .requestMatchers("/", "/user/authenticate", "/css/**", "/js/**", "/images/**").permitAll()  // Cho phép truy cập vào tất cả tài nguyên trong /html
+                                .anyRequest().authenticated()  // Yêu cầu xác thực cho các yêu cầu còn lại
                 )
                 .formLogin(formLogin ->
                         formLogin
-                                .loginPage("/mylogin")  // Đặt trang đăng nhập của bạn ở đường dẫn gốc
-                                .permitAll()  // Cho phép truy cập vào trang đăng nhập mà không cần xác thực
+                                .loginPage("/")
+                                .permitAll()
                 )
                 .logout(logout ->
                         logout
                                 .logoutUrl("/logout")
-                                .logoutSuccessUrl("/")  // Chuyển hướng về trang chính sau khi đăng xuất
+                                .logoutSuccessUrl("/")
                 )
                 .sessionManagement(sessionManagement ->
                         sessionManagement
@@ -35,12 +37,11 @@ public class SecurityConfig {
                                 .invalidSessionUrl("/")
                                 .maximumSessions(1)
                                 .expiredUrl("/")
-                )
-                .csrf(csrf ->
-                        csrf
-                                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                )
-        ;
+                );
+//                .csrf(csrf ->
+//                        csrf
+//                                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//                );
         return http.build();
     }
 }
