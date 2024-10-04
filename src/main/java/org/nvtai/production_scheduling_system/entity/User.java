@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "Users")
 @Data
@@ -29,4 +32,13 @@ public class User {
 
     @Column(name = "email")
     String email;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "UserRoles",  // Tên bảng phải trùng khớp với tên bảng trong SQL Server
+            joinColumns = @JoinColumn(name = "uid"),
+            inverseJoinColumns = @JoinColumn(name = "rid")
+    )
+    Set<Role> roles = new HashSet<>();
+
 }

@@ -5,24 +5,23 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Login</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
 <div class="form-container">
     <p class="title">LOGIN</p>
-    <form class="form" th:action="@{/user/authenticate}" method="POST">
-        <!-- Thêm token CSRF vào form -->
-<!--        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+    <form class="form" th:action="@{/login}" method="POST">
         <div class="input-group">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" placeholder=""
-                   th:value="${param.username}">
+            <!-- Giữ lại tên người dùng đã nhập khi có lỗi -->
+            <input type="text" name="username" id="username" placeholder="Username"
+                   th:value="${param.username}" required>
         </div>
         <div class="input-group">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="">
+            <input type="password" name="password" id="password" placeholder="Password" required>
             <div class="options">
                 <div class="remember-me">
                     <input type="checkbox" id="remember-me" name="remember-me">
@@ -35,6 +34,7 @@
         </div>
         <button class="sign">Sign in</button>
 
+        <!-- Hiển thị thông báo lỗi nếu có -->
         <div th:if="${error}">
             <p class="error" th:text="${error}"></p>
         </div>

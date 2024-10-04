@@ -8,6 +8,8 @@ spring:
     hibernate:
       ddl-auto: none
       dialect: org.hibernate.dialect.SQLServerDialect
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
   mvc:
     view:
@@ -22,3 +24,9 @@ spring:
     user:
       name: admin
       password: admin
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
