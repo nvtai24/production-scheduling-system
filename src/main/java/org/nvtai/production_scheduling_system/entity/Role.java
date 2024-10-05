@@ -3,6 +3,7 @@ package org.nvtai.production_scheduling_system.entity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
 
 import java.util.HashSet;
@@ -28,5 +29,6 @@ public class Role {
             joinColumns = @JoinColumn(name = "rid"),
             inverseJoinColumns = @JoinColumn(name = "fid")
     )
+    @EqualsAndHashCode.Exclude
     Set<Feature> features = new HashSet<>();
 }

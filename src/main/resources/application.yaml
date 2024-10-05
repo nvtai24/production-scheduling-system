@@ -20,11 +20,6 @@ spring:
     servlet:
       session:
         timeout: 30m
-  security:
-    user:
-      name: admin
-      password: admin
-
 logging:
   level:
     org:

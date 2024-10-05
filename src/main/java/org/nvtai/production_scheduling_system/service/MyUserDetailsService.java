@@ -27,29 +27,20 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-//        user.getRoles().forEach(role -> {
-//            System.out.println("Role: " + role.getRname());  // Kiểm tra vai trò
-//            System.out.println("Number of features: " + role.getFeatures().size()); // test
-//            role.getFeatures().forEach(feature -> {
-//                grantedAuthorities.add(new SimpleGrantedAuthority(feature.getUrl()));
-//                System.out.println("Granted Authority: " + feature.getUrl());  // Log quyền để kiểm tra
-//            });
-//        });
+        if (!user.isActive()) {
+            throw new UsernameNotFoundException("User is not active");
+        }
 
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         user.getRoles().forEach(role -> {
-            System.out.println("Role: " + role.getRname());
-            if (role.getFeatures() == null) {
-                System.out.println("Features is null");
-            } else {
-                System.out.println("Number of features: " + role.getFeatures().size());
-                role.getFeatures().forEach(feature -> {
-                    System.out.println("hihi");
-                    grantedAuthorities.add(new SimpleGrantedAuthority(feature.getUrl()));
-                    System.out.println("Granted Authority: " + feature.getUrl());
-                });
-            }
+            System.out.println("Role: " + role.getRname());  // Kiểm tra vai trò
+            System.out.println("Number of features: " + role.getFeatures().size()); // test
+            role.getFeatures().forEach(feature -> {
+                grantedAuthorities.add(new SimpleGrantedAuthority(feature.getUrl()));
+                System.out.println("Granted Authority: " + feature.getUrl());  // Log quyền để kiểm tra
+            });
         });
+
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),

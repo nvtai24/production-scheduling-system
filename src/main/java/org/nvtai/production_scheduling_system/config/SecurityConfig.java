@@ -20,15 +20,14 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new MyUserDetailsService();  // Tải thông tin người dùng qua MyUserDetailsService
+        return new MyUserDetailsService();
     }
 
-    // Thêm DaoAuthenticationProvider để xác thực người dùng qua UserDetailsService và PasswordEncoder
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());  // Sử dụng NoOpPasswordEncoder để không mã hóa mật khẩu
+        authProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         return authProvider;
     }
 
@@ -37,14 +36,14 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/login", "/css/**", "/js/**").permitAll()  // Cho phép truy cập trang login và các tài nguyên tĩnh
-                                .anyRequest().authenticated()  // Các URL khác phải được xác thực
+                                .requestMatchers("/login", "/css/**", "/js/**").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
                         formLogin
-                                .loginPage("/login")  // Trang đăng nhập tùy chỉnh
-                                .defaultSuccessUrl("/home", true)  // Chuyển hướng sau khi đăng nhập thành công
-                                .failureUrl("/login?error=true")  // Nếu đăng nhập thất bại
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/home", true)
+                                .failureUrl("/login?error=true")
                                 .permitAll()
                 )
                 .logout(logout ->
@@ -53,7 +52,7 @@ public class SecurityConfig {
                                 .logoutSuccessUrl("/login?logout=true")
                                 .permitAll()
                 )
-                .csrf(csrf -> csrf.disable());  // Vô hiệu hóa CSRF
+                .csrf(csrf -> csrf.disable());
         return http.build();
     }
 }
