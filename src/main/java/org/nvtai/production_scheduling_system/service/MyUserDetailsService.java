@@ -21,7 +21,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("Loading user by username: " + username);  // Log để kiểm tra
+        System.out.println("Loading user by username: " + username);
         User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -33,18 +33,17 @@ public class MyUserDetailsService implements UserDetailsService {
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         user.getRoles().forEach(role -> {
-            System.out.println("Role: " + role.getRname());  // Kiểm tra vai trò
-            System.out.println("Number of features: " + role.getFeatures().size()); // test
+            System.out.println("Role: " + role.getRname());
+            System.out.println("Number of features: " + role.getFeatures().size());
             role.getFeatures().forEach(feature -> {
                 grantedAuthorities.add(new SimpleGrantedAuthority(feature.getUrl()));
-                System.out.println("Granted Authority: " + feature.getUrl());  // Log quyền để kiểm tra
+                System.out.println("Granted Authority: " + feature.getUrl());
             });
         });
 
-
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
-                user.getPassword(),  // Mật khẩu plain text (không mã hóa)
+                user.getPassword(),
                 grantedAuthorities
         );
     }

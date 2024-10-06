@@ -3,27 +3,21 @@ package org.nvtai.production_scheduling_system.entity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
-@Table(name = "Features")
+@Table(name = "Products")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Feature {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long fid;
+    private Long pid;
 
-    String fname;
+    private String pname;
+    private String estimation;
+    private String description;
 
-    String url;
-
-    @ManyToMany(mappedBy = "features")
-    @EqualsAndHashCode.Exclude
-    Set<Role> roles = new HashSet<>();
+    // Getters and Setters
 }

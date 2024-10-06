@@ -15,27 +15,21 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "uid")
     Long uid;
 
-    @Column(name = "eid")
     Long eid;
 
-    @Column(name = "username")
     String username;
 
-    @Column(name = "password")
     String password;
 
-    @Column(name = "active")
     boolean active;
 
-    @Column(name = "email")
     String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "UserRoles",  // Tên bảng phải trùng khớp với tên bảng trong SQL Server
+            name = "UserRoles",
             joinColumns = @JoinColumn(name = "uid"),
             inverseJoinColumns = @JoinColumn(name = "rid")
     )

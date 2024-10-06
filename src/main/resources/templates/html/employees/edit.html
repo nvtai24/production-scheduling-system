@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sửa thông tin nhân viên</title>
+</head>
+<body>
+<h1>Sửa thông tin nhân viên</h1>
+<form th:action="@{/employees/edit/{id}(id=${employee.eid})}" method="post">
+    <label for="name">Tên:</label>
+    <input type="text" id="name" th:value="${employee.ename}" name="ename"/>
+    <br/>
+
+    <label for="phoneNumber">Số điện thoại:</label>
+    <input type="text" id="phoneNumber" th:value="${employee.phoneNumber}" name="phonenumber"/>
+    <br/>
+
+    <label for="address">Địa chỉ:</label>
+    <input type="text" id="address" th:value="${employee.address}" name="address"/>
+    <br/>
+
+    <label for="department">Phòng ban:</label>
+    <input type="text" id="department" th:value="${employee.department.getDname()}" name="did"/>
+    <br/>
+
+    <button type="submit">Lưu thay đổi</button>
+</form>
+<a th:href="@{/employees}">Quay lại danh sách</a>
+</body>
+</html>

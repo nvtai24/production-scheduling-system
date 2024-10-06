@@ -17,10 +17,8 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rid")
     Long rid;
 
-    @Column(name = "rname")
     String rname;
 
     @ManyToMany(fetch = FetchType.EAGER)

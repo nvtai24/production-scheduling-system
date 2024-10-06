@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách nhân viên</title>
+</head>
+<body>
+<h1>Danh sách nhân viên</h1>
+<table border="1px">
+    <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Số điện thoại</th>
+        <th>Địa chỉ</th>
+        <th>Phòng ban</th>
+        <th>Hành động</th>
+    </tr>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.eid}"></td>
+        <td th:text="${employee.ename}"></td>
+        <td th:text="${employee.phoneNumber}"></td>
+        <td th:text="${employee.address}"></td>
+        <td th:text="${employee.department.dname}"></td>
+        <td>
+            <a th:href="@{/employees/edit/{id}(id=${employee.eid})}">Sửa</a>
+
+            <!-- Form delete -->
+            <form th:action="@{/employees/delete/{id}(id=${employee.eid})}" method="post" style="display:inline;">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên này?');">Xóa</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<a th:href="@{/employees/add}">Thêm mới nhân viên</a>
+</body>
+</html>
