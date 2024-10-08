@@ -11,7 +11,7 @@
     <br/>
 
     <label for="phoneNumber">Số điện thoại:</label>
-    <input type="text" id="phoneNumber" th:value="${employee.phoneNumber}" name="phonenumber"/>
+    <input type="text" id="phoneNumber" th:value="${employee.phoneNumber}" name="phoneNumber"/>
     <br/>
 
     <label for="address">Địa chỉ:</label>
@@ -19,7 +19,13 @@
     <br/>
 
     <label for="department">Phòng ban:</label>
-    <input type="text" id="department" th:value="${employee.department.getDname()}" name="did"/>
+    <select id="department" name="departmentId">
+        <option th:each="dept : ${departments}"
+                th:value="${dept.did}"
+                th:text="${dept.dname}"
+                th:selected="${dept.did == employee.department.did}">
+        </option>
+    </select>
     <br/>
 
     <button type="submit">Lưu thay đổi</button>

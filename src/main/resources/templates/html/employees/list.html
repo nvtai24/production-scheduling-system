@@ -2,10 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Danh sách nhân viên</title>
+    <!-- Thêm SweetAlert từ CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+
 <h1>Danh sách nhân viên</h1>
-<table border="1">
+
+<table border="1px">
     <tr>
         <th>ID</th>
         <th>Tên</th>
@@ -19,16 +23,39 @@
         <td th:text="${employee.ename}"></td>
         <td th:text="${employee.phoneNumber}"></td>
         <td th:text="${employee.address}"></td>
-        <td th:text="${employee.department}"></td>
+        <td th:text="${employee.department.dname}"></td>
         <td>
             <a th:href="@{/employees/edit/{id}(id=${employee.eid})}">Sửa</a>
-            <!-- Nút mở form xác nhận xoá -->
             <form th:action="@{/employees/delete/{id}(id=${employee.eid})}" method="post" style="display:inline;">
-                <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xoá nhân viên này không?')">Xóa</button>
+                <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên này?');">Xóa</button>
             </form>
         </td>
     </tr>
 </table>
-<a href="/employees/add">Thêm mới nhân viên</a>
+
+<a th:href="@{/employees/add}">Thêm mới nhân viên</a>
+
+<script th:inline="javascript">
+    // Kiểm tra thông báo thành công
+    let successMessage = /*[[${success}]]*/ '';
+    if (successMessage) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công',
+            text: successMessage
+        });
+    }
+
+    // Kiểm tra thông báo lỗi
+    let errorMessage = /*[[${error}]]*/ '';
+    if (errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi',
+            text: errorMessage
+        });
+    }
+</script>
+
 </body>
 </html>
